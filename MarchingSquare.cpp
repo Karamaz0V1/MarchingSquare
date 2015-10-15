@@ -11,7 +11,7 @@
 #include <cstdlib>
 #include <visp/vpImage.h>
 #define COL 100
-#define ROW 10
+#define ROW 100
 #define SCL 10
 #define KCOLOR vpColor::green
 // TODO: user defined
@@ -68,19 +68,13 @@ void MarchingSquare::displayMarchingSquare() const {
     kmatrix out;
     march(out);
 
-    vpImage<vpRGBa> fieldImage(ROW * SCL, COL * SCL);
+    vpImage<vpRGBa> fieldImage(ROW * SCL - SCL, COL * SCL - SCL);
     vpDisplayX disp(fieldImage, 10, 10, "KMarchingSquare");
     vpDisplay::display(fieldImage);
 
-    for (kmatrix::const_iterator it = out.begin(); it != out.end(); it++)
-        for (vector<int>::const_iterator it2 = it->begin(); it2 != it->end(); it2++) {
-
-
-        }
-
-    vpImagePoint p1(0,0), p2(0,50);
-    //vpDisplay::displayLine(fieldImage, p1, p2, vpColor::green);
-    drawSquare(fieldImage, p1, 1);
+    for (int i = 0; i < out.size(); i++)
+        for (int j = 0; j < out[0].size(); j++)
+            drawSquare(fieldImage, vpImagePoint(i * SCL, j * SCL), out[i][j]);
 
     vpDisplay::flush(fieldImage);
     vpDisplay::getClick(fieldImage);
@@ -88,9 +82,63 @@ void MarchingSquare::displayMarchingSquare() const {
 
 void MarchingSquare::drawSquare(vpImage<vpRGBa> & im, const vpImagePoint & p, int square) const {
     switch (square) {
+        case 14:
         case 1: {
             vpImagePoint offset1(SCL/2, 0);
             vpImagePoint offset2(SCL, SCL/2);
+            vpDisplay::displayLine(im, p + offset1, p + offset2, KCOLOR);
+            break;
+                }
+        case 13:
+        case 2: {
+            vpImagePoint offset1(SCL, SCL/2);
+            vpImagePoint offset2(SCL/2, SCL);
+            vpDisplay::displayLine(im, p + offset1, p + offset2, KCOLOR);
+            break;
+                }
+        case 12:
+        case 3: {
+            vpImagePoint offset1(SCL/2, 0);
+            vpImagePoint offset2(SCL/2, SCL);
+            vpDisplay::displayLine(im, p + offset1, p + offset2, KCOLOR);
+            break;
+                }
+        case 11:
+        case 4: {
+            vpImagePoint offset1(0, SCL/2);
+            vpImagePoint offset2(SCL/2, SCL);
+            vpDisplay::displayLine(im, p + offset1, p + offset2, KCOLOR);
+            break;
+                }
+        case 5: {
+            vpImagePoint offset1(SCL/2, 0);
+            vpImagePoint offset2(0, SCL/2);
+            vpDisplay::displayLine(im, p + offset1, p + offset2, KCOLOR);
+            offset1 = vpImagePoint(SCL, SCL/2);
+            offset2 = vpImagePoint(SCL/2, SCL);
+            vpDisplay::displayLine(im, p + offset1, p + offset2, KCOLOR);
+            break;
+                }
+        case 9:
+        case 6: {
+            vpImagePoint offset1(0, SCL/2);
+            vpImagePoint offset2(SCL, SCL/2);
+            vpDisplay::displayLine(im, p + offset1, p + offset2, KCOLOR);
+            break;
+                }
+        case 8:
+        case 7: {
+            vpImagePoint offset1(SCL/2, 0);
+            vpImagePoint offset2(0, SCL/2);
+            vpDisplay::displayLine(im, p + offset1, p + offset2, KCOLOR);
+            break;
+                }
+        case 10: {
+            vpImagePoint offset1(0, SCL/2);
+            vpImagePoint offset2(SCL/2, SCL);
+            vpDisplay::displayLine(im, p + offset1, p + offset2, KCOLOR);
+            offset1 = vpImagePoint(SCL/2, 0);
+            offset2 = vpImagePoint(SCL, SCL/2);
             vpDisplay::displayLine(im, p + offset1, p + offset2, KCOLOR);
             break;
                 }
