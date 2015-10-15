@@ -9,15 +9,19 @@
 #ifndef __MARCHINGSQUARE_H__
 #define __MARCHINGSQUARE_H__
 #include <vector>
+#define matrix std::vector<std::vector<int> >
 
 class MarchingSquare {
     public:
         MarchingSquare();
-        ~MarchingSquare();
-        void randomize(int n = 100);
+        virtual ~MarchingSquare();
+        void randomize(int n = 500);
+        void dispMatrix() const;
+        void dispMatrix(const matrix & mat) const;
+        void march(matrix & patternMap) const;
 
     private:
-        std::vector<std::vector<int> > _field;
+        matrix _field;
 };
 
 #endif /* __MARCHINGSQUARE_H__ */
