@@ -9,8 +9,8 @@
 #include "MarchingSquare.h"
 #include <iostream>
 #include <cstdlib>
-#define COL 100
-#define ROW 100
+#define COL 10
+#define ROW 10
 // TODO: user defined
 
 using std::vector;
@@ -46,13 +46,17 @@ void MarchingSquare::march(matrix & patternMap) const {
         it->resize(COL - 1);
 
     matrix::iterator itpm = patternMap.begin();
-    for (matrix::const_iterator it = _field.begin(); it != _field.end() - 1; it++) {
+    for (int i = 0; i < ROW - 1; i++) {
         vector<int>::iterator it2pm = itpm->begin();
-        for (vector<int>::const_iterator it2 = it->begin(); it2 != it->end() - 1; it2++) {
+        for (int j = 0; j < COL - 1; j++) {
             unsigned char binaryVal = 0;
-            binaryVal = *it2;
-            binaryVal << 1;
-            binaryVal |= *it2 + 1;
+            binaryVal = _field[i][j];
+            binaryVal <<= 1;
+            binaryVal |= _field[i][j+1];
+            binaryVal <<= 1;
+            binaryVal |= _field[i+1][j+1];
+            binaryVal <<= 1;
+            binaryVal |= _field[i+1][j];
             *it2pm = binaryVal;
             it2pm++;
         }
