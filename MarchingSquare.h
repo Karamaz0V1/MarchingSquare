@@ -9,7 +9,8 @@
 #ifndef __MARCHINGSQUARE_H__
 #define __MARCHINGSQUARE_H__
 #include <vector>
-#define matrix std::vector<std::vector<int> >
+#include <visp/vpDisplayX.h>
+#define kmatrix std::vector<std::vector<int> >
 
 class MarchingSquare {
     public:
@@ -17,11 +18,13 @@ class MarchingSquare {
         virtual ~MarchingSquare();
         void randomize(int n = 500);
         void dispMatrix() const;
-        void dispMatrix(const matrix & mat) const;
-        void march(matrix & patternMap) const;
+        void dispMatrix(const kmatrix & mat) const;
+        void march(kmatrix & patternMap) const;
+        void displayMarchingSquare() const;
 
     private:
-        matrix _field;
+        kmatrix _field;
+        void drawSquare(vpImage<vpRGBa> & im, const vpImagePoint & p, int square) const;
 };
 
 #endif /* __MARCHINGSQUARE_H__ */

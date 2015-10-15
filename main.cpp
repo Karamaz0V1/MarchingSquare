@@ -20,6 +20,7 @@ int main( int argc, char* argv[] )
     vector<vector<int> > out;
     ms.march(out);
     ms.dispMatrix(out);
+    ms.displayMarchingSquare();
 }
 
 
