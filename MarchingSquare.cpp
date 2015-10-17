@@ -10,8 +10,8 @@
 #include <iostream>
 #include <cstdlib>
 #include <visp/vpImage.h>
-#define COL 100
-#define ROW 100
+#define COL 192
+#define ROW 108
 #define SCL 10
 #define KCOLOR vpColor::green
 // TODO: user defined
@@ -78,6 +78,22 @@ void MarchingSquare::displayMarchingSquare() const {
 
     vpDisplay::flush(fieldImage);
     vpDisplay::getClick(fieldImage);
+}
+
+void MarchingSquare::animate() {
+    vpImage<vpRGBa> fieldImage(ROW * SCL - SCL, COL * SCL - SCL);
+    vpDisplayX disp(fieldImage, 10, 10, "KMarchingSquare");
+    vpDisplay::display(fieldImage);
+    kmatrix out;
+    while (true) {
+        randomize(10);
+        march(out);
+        vpDisplay::display(fieldImage);
+        for (int i = 0; i < out.size(); i++)
+            for (int j = 0; j < out[0].size(); j++)
+                drawSquare(fieldImage, vpImagePoint(i * SCL, j * SCL), out[i][j]);
+        vpDisplay::flush(fieldImage);
+    }
 }
 
 void MarchingSquare::drawSquare(vpImage<vpRGBa> & im, const vpImagePoint & p, int square) const {

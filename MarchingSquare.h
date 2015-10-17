@@ -21,6 +21,7 @@ class MarchingSquare {
         void dispMatrix(const kmatrix & mat) const;
         void march(kmatrix & patternMap) const;
         void displayMarchingSquare() const;
+        void animate();
 
     private:
         kmatrix _field;

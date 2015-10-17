@@ -15,12 +15,9 @@ int main( int argc, char* argv[] )
 {
     std::cout << "HULLO!" << std::endl;
     MarchingSquare ms;
-    ms.randomize(10000);
-    ms.dispMatrix();
-    vector<vector<int> > out;
-    ms.march(out);
-    ms.dispMatrix(out);
-    ms.displayMarchingSquare();
+//    ms.randomize(100);
+//    ms.displayMarchingSquare();
+    ms.animate();
 }
 
 
