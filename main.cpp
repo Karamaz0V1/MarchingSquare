@@ -13,11 +13,13 @@ using std::vector;
 
 int main( int argc, char* argv[] )
 {
-    std::cout << "HULLO!" << std::endl;
     MarchingSquare ms;
+    //ms.drawCircle(100, 100, 50);
+    //ms.dispMatrix();
 //    ms.randomize(100);
-//    ms.displayMarchingSquare();
-    ms.animate();
+    //ms.displayMarchingSquare();
+    //ms.animate();
+    ms.blebleble();
 }
 
 

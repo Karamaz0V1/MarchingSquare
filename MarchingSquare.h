@@ -22,6 +22,9 @@ class MarchingSquare {
         void march(kmatrix & patternMap) const;
         void displayMarchingSquare() const;
         void animate();
+        void drawCircle(int i, int j, int size);
+        void resetField();
+        void blebleble();
 
     private:
         kmatrix _field;

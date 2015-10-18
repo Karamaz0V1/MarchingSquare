@@ -10,9 +10,9 @@
 #include <iostream>
 #include <cstdlib>
 #include <visp/vpImage.h>
-#define COL 192
-#define ROW 108
-#define SCL 10
+#define COL 480
+#define ROW 270
+#define SCL 10 
 #define KCOLOR vpColor::green
 // TODO: user defined
 
@@ -93,6 +93,44 @@ void MarchingSquare::animate() {
             for (int j = 0; j < out[0].size(); j++)
                 drawSquare(fieldImage, vpImagePoint(i * SCL, j * SCL), out[i][j]);
         vpDisplay::flush(fieldImage);
+    }
+}
+
+void MarchingSquare::drawCircle(int i, int j, int size) {
+    for (int x = -size / SCL; x < size / SCL; x++)
+        for (int y = -size / SCL; y < size / SCL; y ++) {
+            int pi = i + x * SCL;
+            int pj = j + y * SCL;
+            if (sqrt((pi - i) * (pi - i) + (pj - j) * (pj - j)) < size)
+                _field[i / SCL + x][j / SCL + y] = 1;
+        }
+}
+
+void MarchingSquare::resetField() {
+    for (kmatrix::iterator it = _field.begin(); it != _field.end(); it++)
+        for (vector<int>::iterator it2 = it->begin(); it2 != it->end(); it2++)
+            *it2 = 0;
+}
+
+void MarchingSquare::blebleble() {
+    vpImage<vpRGBa> fieldImage(ROW * SCL - SCL, COL * SCL - SCL);
+    vpDisplayX disp(fieldImage, 10, 10, "KMarchingSquare");
+    vpDisplay::display(fieldImage);
+    kmatrix out;
+    int x = 500, y = 100;
+    int x2 = 600, y2 = 1820;
+    while (true) {
+        resetField();
+        drawCircle(x, y, 100);
+        drawCircle(x2, y2, 100);
+        march(out);
+        vpDisplay::display(fieldImage);
+        for (int i = 0; i < out.size(); i++)
+            for (int j = 0; j < out[0].size(); j++)
+                drawSquare(fieldImage, vpImagePoint(i * SCL, j * SCL), out[i][j]);
+        vpDisplay::flush(fieldImage);
+        y+= SCL;
+        y2-= SCL; 
     }
 }
 
