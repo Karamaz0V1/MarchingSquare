@@ -143,8 +143,12 @@ void MarchingSquare::demoblob2() {
 
     addAtom(k1);
     addAtom(k2);
-    updateField();
-    drawSquares(fieldImage, out);
+
+    while (true) {
+        updateField();
+        drawSquares(fieldImage, out);
+        k2->positionShift(0, 10);
+    }
 
     vpDisplay::getClick(fieldImage);
 

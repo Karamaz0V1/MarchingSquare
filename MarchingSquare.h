@@ -46,6 +46,7 @@ class MarchingSquare {
                 virtual double kdistance(const vpImagePoint & point) const {
                     return _weight / sqrt((_position.get_i() - point.get_i()) * (_position.get_i() - point.get_i()) + (_position.get_j() - point.get_j()) * (_position.get_j() - point.get_j()));
                 }
+                void positionShift(int x, int y) { _position += vpImagePoint(x, y); }
                 vpImagePoint _position;
                 double _weight;
         };
