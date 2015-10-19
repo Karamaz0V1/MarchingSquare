@@ -138,8 +138,11 @@ void MarchingSquare::demoblob2() {
     vpDisplay::display(fieldImage);
     kmatrix out;
 
-    addAtom(new KAtom(vpImagePoint(100, 100), 150));
-    addAtom(new KAtom(vpImagePoint(100, 350), 50));
+    KAtom * k1 = new KAtom(vpImagePoint(100, 100), 150);
+    KAtom * k2 = new KAtom(vpImagePoint(100, 350), 50);
+
+    addAtom(k1);
+    addAtom(k2);
     updateField();
     drawSquares(fieldImage, out);
 
