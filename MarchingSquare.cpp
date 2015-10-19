@@ -112,7 +112,7 @@ void MarchingSquare::resetField() {
             *it2 = 0;
 }
 
-void MarchingSquare::addAtom(KAtom atom) {
+void MarchingSquare::addAtom(KAtom * atom) {
     _atoms.push_back(atom);
 }
 
@@ -123,8 +123,8 @@ void MarchingSquare::updateField() {
         for (int j = 0; j < COL; j++) {
             // Atoms cross
             double score = 0;
-            for (vector<KAtom>::const_iterator it = _atoms.begin(); it != _atoms.end(); it++) {
-                score += it->kdistance(vpImagePoint(i * SCL, j * SCL));
+            for (vector<KAtom*>::const_iterator it = _atoms.begin(); it != _atoms.end(); it++) {
+                score += (*it)->kdistance(vpImagePoint(i * SCL, j * SCL));
             }
             //_field[i][j] = (score >= 1) ? 1 : 0;
             _field[i][j] = (score >= 1);
@@ -138,8 +138,8 @@ void MarchingSquare::demoblob2() {
     vpDisplay::display(fieldImage);
     kmatrix out;
 
-    addAtom(KAtom(vpImagePoint(100, 100), 150));
-    addAtom(KAtom(vpImagePoint(100, 350), 50));
+    addAtom(new KAtom(vpImagePoint(100, 100), 150));
+    addAtom(new KAtom(vpImagePoint(100, 350), 50));
     updateField();
     drawSquares(fieldImage, out);
 

@@ -25,7 +25,7 @@ class MarchingSquare {
         void animate();
         void drawCircle(int i, int j, int size);
         void resetField();
-        void addAtom(KAtom atom);
+        void addAtom(KAtom * atom);
         void updateField();
 
     public:
@@ -35,7 +35,7 @@ class MarchingSquare {
 
     private:
         kmatrix _field;
-        std::vector<KAtom> _atoms;
+        std::vector<KAtom*> _atoms;
         void drawSquare(vpImage<vpRGBa> & im, const vpImagePoint & p, int square) const;
         void drawSquares(vpImage<vpRGBa> & fieldImage, kmatrix & out) const;
 
