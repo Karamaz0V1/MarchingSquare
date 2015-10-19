@@ -13,6 +13,7 @@
 #define kmatrix std::vector<std::vector<int> >
 
 class MarchingSquare {
+    class KAtom;
     public:
         MarchingSquare();
         virtual ~MarchingSquare();
@@ -24,11 +25,30 @@ class MarchingSquare {
         void animate();
         void drawCircle(int i, int j, int size);
         void resetField();
-        void blebleble();
+        void addAtom(KAtom atom);
+        void updateField();
+
+    public:
+        void demoblob();
+        void demoblob2();
+        // TODO: frame once function
 
     private:
         kmatrix _field;
+        std::vector<KAtom> _atoms;
         void drawSquare(vpImage<vpRGBa> & im, const vpImagePoint & p, int square) const;
+
+        // TODO: opti
+        class KAtom {
+            public:
+                KAtom(vpImagePoint position, double weight) : _position(position), _weight(weight) {}
+                virtual double kdistance(const vpImagePoint & point) const {
+                    return _weight / sqrt((_position.get_i() - point.get_i()) * (_position.get_j() - point.get_j()));
+                }
+                vpImagePoint _position;
+                double _weight;
+        };
+        // TODO: new KAtoms
 };
 
 #endif /* __MARCHINGSQUARE_H__ */

@@ -19,7 +19,7 @@ int main( int argc, char* argv[] )
 //    ms.randomize(100);
     //ms.displayMarchingSquare();
     //ms.animate();
-    ms.blebleble();
+    ms.demoblob2();
 }
 
 

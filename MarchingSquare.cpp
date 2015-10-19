@@ -112,7 +112,31 @@ void MarchingSquare::resetField() {
             *it2 = 0;
 }
 
-void MarchingSquare::blebleble() {
+void MarchingSquare::addAtom(KAtom atom) {
+    _atoms.push_back(atom);
+}
+
+// TODO: updateFieldOpti
+void MarchingSquare::updateField() {
+    // Grid cross
+    for (int i = 0; i < ROW; i++)
+        for (int j = 0; j < COL; j++) {
+            // Atoms cross
+            double score = 0;
+            for (vector<KAtom>::const_iterator it = _atoms.begin(); it != _atoms.end(); it++) {
+                score += it->kdistance(vpImagePoint(i * SCL, j * SCL));
+            }
+
+        }
+}
+
+void MarchingSquare::demoblob2() {
+    addAtom(KAtom(vpImagePoint(100, 100), 10));
+    addAtom(KAtom(vpImagePoint(100, 120), 10));
+    updateField();
+}
+
+void MarchingSquare::demoblob() {
     vpImage<vpRGBa> fieldImage(ROW * SCL - SCL, COL * SCL - SCL);
     vpDisplayX disp(fieldImage, 10, 10, "KMarchingSquare");
     vpDisplay::display(fieldImage);
