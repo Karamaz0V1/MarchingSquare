@@ -126,14 +126,34 @@ void MarchingSquare::updateField() {
             for (vector<KAtom>::const_iterator it = _atoms.begin(); it != _atoms.end(); it++) {
                 score += it->kdistance(vpImagePoint(i * SCL, j * SCL));
             }
+            //_field[i][j] = (score >= 1) ? 1 : 0;
+            _field[i][j] = (score >= 1);
 
         }
 }
 
 void MarchingSquare::demoblob2() {
-    addAtom(KAtom(vpImagePoint(100, 100), 10));
-    addAtom(KAtom(vpImagePoint(100, 120), 10));
+    vpImage<vpRGBa> fieldImage(ROW * SCL - SCL, COL * SCL - SCL);
+    vpDisplayX disp(fieldImage, 10, 10, "KMarchingSquare");
+    vpDisplay::display(fieldImage);
+    kmatrix out;
+
+    addAtom(KAtom(vpImagePoint(100, 100), 150));
+    addAtom(KAtom(vpImagePoint(100, 350), 50));
     updateField();
+    drawSquares(fieldImage, out);
+
+    vpDisplay::getClick(fieldImage);
+
+}
+
+void MarchingSquare::drawSquares(vpImage<vpRGBa> & fieldImage, kmatrix & out) const {
+    march(out);
+    vpDisplay::display(fieldImage);
+    for (int i = 0; i < out.size(); i++)
+        for (int j = 0; j < out[0].size(); j++)
+                drawSquare(fieldImage, vpImagePoint(i * SCL, j * SCL), out[i][j]);
+    vpDisplay::flush(fieldImage);
 }
 
 void MarchingSquare::demoblob() {
@@ -147,12 +167,13 @@ void MarchingSquare::demoblob() {
         resetField();
         drawCircle(x, y, 100);
         drawCircle(x2, y2, 100);
-        march(out);
-        vpDisplay::display(fieldImage);
-        for (int i = 0; i < out.size(); i++)
-            for (int j = 0; j < out[0].size(); j++)
-                drawSquare(fieldImage, vpImagePoint(i * SCL, j * SCL), out[i][j]);
-        vpDisplay::flush(fieldImage);
+        drawSquares(fieldImage, out);
+        //march(out);
+        //vpDisplay::display(fieldImage);
+        //for (int i = 0; i < out.size(); i++)
+        //    for (int j = 0; j < out[0].size(); j++)
+        //        drawSquare(fieldImage, vpImagePoint(i * SCL, j * SCL), out[i][j]);
+        //vpDisplay::flush(fieldImage);
         y+= SCL;
         y2-= SCL; 
     }

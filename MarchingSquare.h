@@ -37,13 +37,14 @@ class MarchingSquare {
         kmatrix _field;
         std::vector<KAtom> _atoms;
         void drawSquare(vpImage<vpRGBa> & im, const vpImagePoint & p, int square) const;
+        void drawSquares(vpImage<vpRGBa> & fieldImage, kmatrix & out) const;
 
         // TODO: opti
         class KAtom {
             public:
                 KAtom(vpImagePoint position, double weight) : _position(position), _weight(weight) {}
                 virtual double kdistance(const vpImagePoint & point) const {
-                    return _weight / sqrt((_position.get_i() - point.get_i()) * (_position.get_j() - point.get_j()));
+                    return _weight / sqrt((_position.get_i() - point.get_i()) * (_position.get_i() - point.get_i()) + (_position.get_j() - point.get_j()) * (_position.get_j() - point.get_j()));
                 }
                 vpImagePoint _position;
                 double _weight;
