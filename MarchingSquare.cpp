@@ -126,7 +126,6 @@ void MarchingSquare::updateField() {
             for (vector<KAtom*>::const_iterator it = _atoms.begin(); it != _atoms.end(); it++) {
                 score += (*it)->kdistance(vpImagePoint(i * SCL, j * SCL));
             }
-            //_field[i][j] = (score >= 1) ? 1 : 0;
             _field[i][j] = (score >= 1);
 
         }
@@ -155,12 +154,39 @@ void MarchingSquare::demoblob2() {
         if (k2->_position.get_j() < 20) k2shift = -k2shift;
         if (k3->_position.get_i() > 1070) k3shift = -k3shift;
         if (k3->_position.get_i() < 10) k3shift = -k3shift;
-        k2->positionShift(0, k2shift);
-        k3->positionShift(k3shift, 0);
+        k2->positionShift(k2shift, 0);
+        k3->positionShift(0, k3shift);
     }
 
     vpDisplay::getClick(fieldImage);
 
+}
+
+void MarchingSquare::demoblob3() {
+    vpImage<vpRGBa> fieldImage(ROW * SCL - SCL, COL * SCL - SCL);
+    vpDisplayX disp(fieldImage, 10, 10, "KMarchingSquare");
+    vpDisplay::display(fieldImage);
+    kmatrix out;
+    vector<KAtom*> katoms;
+
+    for (int i = 0; i < 10; i++) {
+        KAtom * k = new KAtom(vpImagePoint(rand() % ROW, rand() % COL), rand() % 100);
+        k->_xSpeed = rand() % 50 - 25;
+        k->_ySpeed = rand() % 50 - 25;
+        k->_xMax = COL * SCL;
+        k->_yMax = ROW * SCL;
+        addAtom(k);
+        katoms.push_back(k);
+    }
+
+    while (true) {
+        updateField();
+        drawSquares(fieldImage, out);
+        for (vector<KAtom*>::iterator it = katoms.begin(); it != katoms.end(); it++)
+            (*it)->positionShift();
+    }
+
+    vpDisplay::getClick(fieldImage);
 }
 
 void MarchingSquare::drawSquares(vpImage<vpRGBa> & fieldImage, kmatrix & out) const {

@@ -31,6 +31,7 @@ class MarchingSquare {
     public:
         void demoblob();
         void demoblob2();
+        void demoblob3();
         // TODO: frame once function
 
     private:
@@ -46,9 +47,18 @@ class MarchingSquare {
                 virtual double kdistance(const vpImagePoint & point) const {
                     return _weight / sqrt((_position.get_i() - point.get_i()) * (_position.get_i() - point.get_i()) + (_position.get_j() - point.get_j()) * (_position.get_j() - point.get_j()));
                 }
-                void positionShift(int x, int y) { _position += vpImagePoint(x, y); }
+                void positionShift(int x, int y) { _position += vpImagePoint(y, x); }
+                void positionShift() {
+                    if (_position.get_j() + _xSpeed > _xMax || _position.get_j() + _xSpeed < 0) _xSpeed = -_xSpeed;
+                    if (_position.get_i() + _ySpeed > _yMax || _position.get_i() + _ySpeed < 0) _ySpeed = -_ySpeed;
+                    _position += vpImagePoint(_ySpeed, _xSpeed);
+                }
                 vpImagePoint _position;
                 double _weight;
+                double _xSpeed;
+                double _ySpeed;
+                int _xMax;
+                int _yMax;
         };
         // TODO: new KAtoms
 };
