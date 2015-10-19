@@ -10,9 +10,9 @@
 #include <iostream>
 #include <cstdlib>
 #include <visp/vpImage.h>
-#define COL 480
-#define ROW 270
-#define SCL 10 
+#define SCL 3 
+#define COL 1920 / SCL 
+#define ROW 1080 / SCL
 #define KCOLOR vpColor::green
 // TODO: user defined
 
@@ -140,14 +140,23 @@ void MarchingSquare::demoblob2() {
 
     KAtom * k1 = new KAtom(vpImagePoint(100, 100), 150);
     KAtom * k2 = new KAtom(vpImagePoint(100, 350), 50);
+    KAtom * k3 = new KAtom(vpImagePoint(100, 100), 20);
 
     addAtom(k1);
     addAtom(k2);
+    addAtom(k3);
+    double k2shift = 10;
+    double k3shift = 10;
 
     while (true) {
         updateField();
         drawSquares(fieldImage, out);
-        k2->positionShift(0, 10);
+        if (k2->_position.get_j() > 1900) k2shift = -k2shift;
+        if (k2->_position.get_j() < 20) k2shift = -k2shift;
+        if (k3->_position.get_i() > 1070) k3shift = -k3shift;
+        if (k3->_position.get_i() < 10) k3shift = -k3shift;
+        k2->positionShift(0, k2shift);
+        k3->positionShift(k3shift, 0);
     }
 
     vpDisplay::getClick(fieldImage);
