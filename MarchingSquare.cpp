@@ -10,7 +10,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <visp/vpImage.h>
-#define SCL 3 
+#define SCL 4 
 #define COL 1920 / SCL 
 #define ROW 1080 / SCL
 #define KCOLOR vpColor::green
@@ -21,6 +21,7 @@ using std::cout;
 using std::endl;
 
 MarchingSquare::MarchingSquare() : _field(ROW, vector<int>(COL)) {
+    srand(time(NULL));
 }
 
 MarchingSquare::~MarchingSquare() {}
@@ -170,7 +171,7 @@ void MarchingSquare::demoblob3() {
     vector<KAtom*> katoms;
 
     for (int i = 0; i < 10; i++) {
-        KAtom * k = new KAtom(vpImagePoint(rand() % (ROW * SCL), rand() % (COL * SCL)), rand() % 100);
+        KAtom * k = new KAtom(vpImagePoint(rand() % (ROW * SCL), rand() % (COL * SCL)), rand() % 40 + 30);
         k->_xSpeed = rand() % 24 - 12;
         k->_ySpeed = rand() % 24 - 12;
         k->_xMax = COL * SCL;
