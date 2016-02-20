@@ -8,7 +8,6 @@
 
 #include <iostream>
 #include "MarchingSquare.h"
-#include "MarchingCube.h"
 #include <vector>
 using std::vector;
 
@@ -17,10 +16,11 @@ int main( int argc, char* argv[] )
     MarchingSquare ms;
     //ms.drawCircle(100, 100, 50);
     //ms.dispMatrix();
-//    ms.randomize(100);
+    //ms.randomize(100);
     //ms.displayMarchingSquare();
     //ms.animate();
     ms.demoblob3();
+    return 0;
 }
 
 

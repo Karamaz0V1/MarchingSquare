@@ -1,14 +1,16 @@
 PROJECT(marching_square)
+PROJECT(marching_cube)
 
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
 
 FIND_PACKAGE(VISP REQUIRED)
 IF(VISP_FOUND)
   INCLUDE(${VISP_USE_FILE})
 ENDIF(VISP_FOUND)
 
+add_compile_options("$<$<CONFIG:DEBUG>:-Wall>")
+
 SET(SRC 
-    main.cpp
     MarchingCube.cpp
     MarchingSquare.cpp
     Cube.cpp
@@ -20,4 +22,5 @@ SET(HDR
     Cube.h
     )
 
-ADD_EXECUTABLE(marching_square ${SRC} ${HDR})
+ADD_EXECUTABLE(marching_square main_ms.cpp ${SRC} ${HDR})
+ADD_EXECUTABLE(marching_cube main_mc.cpp ${SRC} ${HDR})
