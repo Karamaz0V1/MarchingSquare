@@ -1,4 +1,6 @@
 [Bb]uild
 [Rr]elease
+[Dd]ebug
+tags
 .*.sw?
 *~
