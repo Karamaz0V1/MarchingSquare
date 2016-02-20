@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include "MarchingSquare.h"
+#include "MarchingCube.h"
 #include <vector>
 using std::vector;
 

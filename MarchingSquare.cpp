@@ -171,7 +171,7 @@ void MarchingSquare::demoblob3() {
     vector<KAtom*> katoms;
 
     for (int i = 0; i < 10; i++) {
-        KAtom * k = new KAtom(vpImagePoint(rand() % (ROW * SCL), rand() % (COL * SCL)), rand() % 40 + 30);
+        KAtom * k = new KAtom(vpImagePoint(rand() % (ROW * SCL), rand() % (COL * SCL)), rand() % 100 + 100);
         k->_xSpeed = rand() % 24 - 12;
         k->_ySpeed = rand() % 24 - 12;
         k->_xMax = COL * SCL;

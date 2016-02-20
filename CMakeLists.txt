@@ -11,11 +11,13 @@ SET(SRC
     main.cpp
     MarchingCube.cpp
     MarchingSquare.cpp
+    Cube.cpp
     )
 
 SET(HDR
     MarchingCube.h
     MarchingSquare.h
+    Cube.h
     )
 
 ADD_EXECUTABLE(marching_square ${SRC} ${HDR})

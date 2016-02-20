@@ -6,15 +6,17 @@
  *
  **************************************************************************/
 
-#ifndef __MARCHINGCUBE_H__
-#define __MARCHINGCUBE_H__
+#include <stdio.h>
+#include <stdlib.h>
 #include "Cube.h"
 
-class MarchingCube {
-    public:
-        MarchingCube();
-        ~MarchingCube();
+Cube::Cube() : _vertices() {
+}
 
-};
+const bool & Cube::vertex(int index) const {
+    return _vertices[0];
+}
 
-#endif /* __MARCHINGCUBE_H__ */
+bool & Cube::vertex(int index) {
+    return _vertices[0];
+}
