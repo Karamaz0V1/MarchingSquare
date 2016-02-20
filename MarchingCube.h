@@ -15,6 +15,12 @@ class MarchingCube {
         MarchingCube();
         ~MarchingCube();
 
+    private:
+        void computeCases();
+
+    private:
+        // _cases[256];
+
 };
 
 #endif /* __MARCHINGCUBE_H__ */

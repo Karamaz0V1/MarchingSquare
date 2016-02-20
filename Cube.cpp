@@ -6,17 +6,11 @@
  *
  **************************************************************************/
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "Cube.h"
 
 Cube::Cube() : _vertices() {
 }
 
-const bool & Cube::vertex(int index) const {
-    return _vertices[0];
-}
-
-bool & Cube::vertex(int index) {
+bool Cube::vertex(int index) const {
     return _vertices[0];
 }
