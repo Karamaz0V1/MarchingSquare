@@ -14,32 +14,14 @@ using namespace std;
 
 MarchingCube::MarchingCube() {
     Cube c1;
-    c1 << f;
+    c1 << d;
     Filter f1;
     f1 << a;
-    f1 >> b >> d >> e >> c >> f;
+    f1 >> b >> d >> e;
     cout << "Cube: " << c1 << endl << "Filter: " << f1 << endl;
     Cube::Rotation r;
     bool ok = f1.place(c1, r);
     cout << "Is ok: " << ok << " rotation: " << r << endl;
-    f1.rotateX();
-    cout << "Filter: " << f1 << endl;
-    f1.rotateY();
-    cout << "Filter: " << f1 << endl;
-    f1.rotateX();
-    cout << "Filter: " << f1 << endl;
-    f1.rotateY();
-    cout << "Filter: " << f1 << endl;
-    f1.rotateX();
-    cout << "Filter: " << f1 << endl;
-    f1.rotateY();
-    cout << "Filter: " << f1 << endl;
-    f1.rotateZ();
-    cout << "Filter: " << f1 << endl;
-    f1.rotateZ();
-    f1.rotateZ();
-    f1.rotateZ();
-    cout << "Filter: " << f1 << endl;
     // First test
     //cout << "test 1" << endl;
     //Cube c1;

@@ -26,3 +26,4 @@ SET(HDR
 
 ADD_EXECUTABLE(marching_square main_ms.cpp ${SRC} ${HDR})
 ADD_EXECUTABLE(marching_cube main_mc.cpp ${SRC} ${HDR})
+target_compile_features(marching_cube PRIVATE cxx_range_for)

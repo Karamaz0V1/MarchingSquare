@@ -18,12 +18,43 @@ Filter::Filter(const Cube & vertices, const Cube & nvertices) : Cube(vertices), 
     assert((_vertices & _nvertices) == 0);
 }
 
+Filter::Filter(const Filter & filter) : Cube(filter._vertices), _nvertices(filter._nvertices) {
+    assert((_vertices & _nvertices) == 0);
+}
+
+
 bool Filter::equal(const Filter & filter) const {
     return (_vertices == filter._vertices) && (_nvertices == filter._nvertices);
 }
 
 bool Filter::place(const Cube & cube, Rotation & rotation) const {
-    //for (int f = SIDES
+    Filter tmp(*this);
+    bool ok = false;
+    for (int i = 0; i < 3; i++) {
+        for (int k = 0; k < 4; k++)
+            if (tmp.placeZ(cube, rotation))
+                return true;
+        tmp.rotateX();
+        for (int k = 0; k < 4; k++)
+            if (tmp.placeZ(cube, rotation))
+                return true;
+        tmp.rotateY();
+    }
+    return ok;
+}
+
+bool Filter::placeZ(const Cube & cube, Rotation & rotation) {
+        for (int k = 0; k < 4; k++) {
+            if (place(cube)) {
+                rotation = _r;
+                return true;
+            }
+            rotateZ();
+        }
+        return false;
+}
+
+bool Filter::place(const Cube & cube) const {
     return (cube._vertices & _vertices) == _vertices && (cube._vertices & _nvertices) == 0;
 }
 

@@ -14,6 +14,7 @@ class Filter: public Cube {
     public:
         Filter(const std::bitset<8> & vertices = std::bitset<8>(), const std::bitset<8> & nvertices = std::bitset<8>());
         Filter(const Cube & vertices, const Cube & nvertices);
+        Filter(const Filter & filter);
         virtual bool equal(const Filter & filter) const;
         bool place(const Cube & cube, Rotation & r) const;
 
@@ -25,6 +26,10 @@ class Filter: public Cube {
 
         friend Filter& operator>>(Filter& filter, int vertex) { filter._nvertices[vertex] = true; return filter; }
         friend std::ostream& operator<<(std::ostream& stream, const Filter & filter) { stream << "Y[" << filter._vertices << "]N[" << filter._nvertices << "]R" << filter._r; return stream;}
+
+    private:
+        bool place(const Cube & cube) const;
+        bool placeZ(const Cube & cube, Rotation & rotation);
 
     public:
         std::bitset<8> _nvertices;
