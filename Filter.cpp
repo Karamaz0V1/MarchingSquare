@@ -39,13 +39,9 @@ bool Filter::place(const Cube & cube, Rotation & rotation) const {
     Filter tmp(*this);
     bool ok = false;
     for (int i = 0; i < 3; i++) {
-        for (int k = 0; k < 4; k++)
-            if (tmp.placeZ(cube, rotation))
-                return true; // TODO: place pattern in GridCube & update GridCube vertex
+        if (tmp.placeZ(cube, rotation)) return true;
         tmp.rotateX();
-        for (int k = 0; k < 4; k++)
-            if (tmp.placeZ(cube, rotation))
-                return true;
+        if (tmp.placeZ(cube, rotation)) return true;
         tmp.rotateY();
     }
     return ok;
@@ -55,13 +51,9 @@ bool Filter::place(const GridCube & gc, Rotation & rotation) const {
     Filter tmp(*this);
     bool ok = false;
     for (int i = 0; i < 3; i++) {
-        for (int k = 0; k < 4; k++)
-            if (tmp.placeZ(gc, rotation))
-                return true; // TODO: place pattern in GridCube & update GridCube vertex
+        if (tmp.placeZ(gc, rotation)) return true; // TODO: place pattern in GridCube & update GridCube vertex
         tmp.rotateX();
-        for (int k = 0; k < 4; k++)
-            if (tmp.placeZ(gc, rotation))
-                return true;
+        if (tmp.placeZ(gc, rotation)) return true;
         tmp.rotateY();
     }
     return ok;
