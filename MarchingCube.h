@@ -8,7 +8,8 @@
 
 #ifndef __MARCHINGCUBE_H__
 #define __MARCHINGCUBE_H__
-#include "Cube.h"
+#include <vector>
+#include "GridCube.h"
 
 class MarchingCube {
     public:
@@ -19,6 +20,7 @@ class MarchingCube {
         void computeCases();
 
     private:
+        std::vector<GridCube> _gridcubes;
         // _cases[256];
 
 };

@@ -27,13 +27,21 @@ bool Filter::equal(const Filter & filter) const {
     return (_vertices == filter._vertices) && (_nvertices == filter._nvertices);
 }
 
+int Filter::activeVertices() const {
+    return yarpVertices() + narpVertices();
+}
+
+int Filter::narpVertices() const {
+    return _nvertices.count();
+}
+
 bool Filter::place(const Cube & cube, Rotation & rotation) const {
     Filter tmp(*this);
     bool ok = false;
     for (int i = 0; i < 3; i++) {
         for (int k = 0; k < 4; k++)
             if (tmp.placeZ(cube, rotation))
-                return true;
+                return true; // TODO: place pattern in GridCube & update GridCube vertex
         tmp.rotateX();
         for (int k = 0; k < 4; k++)
             if (tmp.placeZ(cube, rotation))
@@ -42,6 +50,23 @@ bool Filter::place(const Cube & cube, Rotation & rotation) const {
     }
     return ok;
 }
+
+bool Filter::place(const GridCube & gc, Rotation & rotation) const {
+    Filter tmp(*this);
+    bool ok = false;
+    for (int i = 0; i < 3; i++) {
+        for (int k = 0; k < 4; k++)
+            if (tmp.placeZ(gc, rotation))
+                return true; // TODO: place pattern in GridCube & update GridCube vertex
+        tmp.rotateX();
+        for (int k = 0; k < 4; k++)
+            if (tmp.placeZ(gc, rotation))
+                return true;
+        tmp.rotateY();
+    }
+    return ok;
+}
+
 
 bool Filter::placeZ(const Cube & cube, Rotation & rotation) {
         for (int k = 0; k < 4; k++) {
@@ -59,6 +84,7 @@ bool Filter::place(const Cube & cube) const {
 }
 
 void Filter::rotateX() {
+    // TODO: better swap ?
     bitset<8> tmp = _vertices;
     _vertices[0] = tmp[3];
     _vertices[1] = tmp[2];

@@ -6,22 +6,38 @@
  *
  **************************************************************************/
 
-#include "MarchingCube.h"
-#include "Filter.h"
 #include <iostream>
+#include <vector>
+#include "MarchingCube.h"
+#include "GridCube.h"
+#include "Filter.h"
 
 using namespace std;
 
 MarchingCube::MarchingCube() {
-    Cube c1;
-    c1 << d;
+    vector<Filter> filters;
+
+    Filter f0;
+    filters.push_back(f0);
+
     Filter f1;
     f1 << a;
     f1 >> b >> d >> e;
+    //f1.meshes() = ogreMeshe;
+    filters.push_back(f1);
+
+    cout << "nactive: " << f1.nonactiveVertices() << " active: " << f1.activeVertices() << " yarp: " << f1.yarpVertices() << " narp: " << f1.narpVertices() << endl;
+
+    for (int i = 0; i < 256; i++) {
+        GridCube gc(i);
+        Cube::Rotation r;
+        bool ok = f1.place(gc, r);
+        cout << gc << " is " << ok << " r: " << r << endl;
+    }
+
+    GridCube c1;
+    c1 << a;
     cout << "Cube: " << c1 << endl << "Filter: " << f1 << endl;
-    Cube::Rotation r;
-    bool ok = f1.place(c1, r);
-    cout << "Is ok: " << ok << " rotation: " << r << endl;
     // First test
     //cout << "test 1" << endl;
     //Cube c1;

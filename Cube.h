@@ -30,6 +30,9 @@ class Cube {
         std::bitset<8> & vertices();
         int getId() const;
         virtual bool equal(const Cube & cube) const;
+        virtual int nonactiveVertices() const;
+        virtual int activeVertices() const;
+        virtual int yarpVertices() const;
 
         virtual bool operator==(const Cube & cube) { return equal(cube); }
 

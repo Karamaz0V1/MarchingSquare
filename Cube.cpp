@@ -35,3 +35,15 @@ int Cube::getId() const {
 bool Cube::equal(const Cube & cube) const {
     return _vertices == cube._vertices;
 }
+
+int Cube::nonactiveVertices() const {
+    return 8 - activeVertices();
+}
+
+int Cube::activeVertices() const {
+    return yarpVertices();
+}
+
+int Cube::yarpVertices() const {
+    return _vertices.count();
+}

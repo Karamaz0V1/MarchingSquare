@@ -8,7 +8,7 @@
 
 #ifndef __FILTER_H__
 #define __FILTER_H__
-#include "Cube.h"
+#include "GridCube.h"
 
 class Filter: public Cube {
     public:
@@ -17,6 +17,9 @@ class Filter: public Cube {
         Filter(const Filter & filter);
         virtual bool equal(const Filter & filter) const;
         bool place(const Cube & cube, Rotation & r) const;
+        bool place(const GridCube & gc, Rotation & r) const;
+        virtual int activeVertices() const;
+        virtual int narpVertices() const;
 
         void rotateX();
         void rotateY();
