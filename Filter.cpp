@@ -47,7 +47,7 @@ bool Filter::place(const Cube & cube, Rotation & rotation) const {
     return ok;
 }
 
-bool Filter::place(const GridCube & gc, Rotation & rotation) const {
+bool Filter::place(GridCube & gc, Rotation & rotation) const {
     Filter tmp(*this);
     bool ok = false;
     for (int i = 0; i < 3; i++) {
@@ -59,10 +59,21 @@ bool Filter::place(const GridCube & gc, Rotation & rotation) const {
     return ok;
 }
 
-
 bool Filter::placeZ(const Cube & cube, Rotation & rotation) {
         for (int k = 0; k < 4; k++) {
             if (place(cube)) {
+                rotation = _r;
+                return true;
+            }
+            rotateZ();
+        }
+        return false;
+}
+
+bool Filter::placeZ(GridCube & gc, Rotation & rotation) {
+        for (int k = 0; k < 4; k++) {
+            if (place(gc)) {
+                gc._vertices ^= _vertices;
                 rotation = _r;
                 return true;
             }

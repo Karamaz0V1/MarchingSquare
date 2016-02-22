@@ -17,7 +17,7 @@ class Filter: public Cube {
         Filter(const Filter & filter);
         virtual bool equal(const Filter & filter) const;
         bool place(const Cube & cube, Rotation & r) const;
-        bool place(const GridCube & gc, Rotation & r) const;
+        bool place(GridCube & gc, Rotation & r) const;
         virtual int activeVertices() const;
         virtual int narpVertices() const;
 
@@ -33,6 +33,7 @@ class Filter: public Cube {
     private:
         bool place(const Cube & cube) const;
         bool placeZ(const Cube & cube, Rotation & rotation);
+        bool placeZ(GridCube & gc, Rotation & rotation);
 
     public:
         std::bitset<8> _nvertices;

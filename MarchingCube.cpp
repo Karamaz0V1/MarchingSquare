@@ -16,28 +16,11 @@ using namespace std;
 
 MarchingCube::MarchingCube() {
     vector<Filter> filters;
-
-    Filter f0;
-    filters.push_back(f0);
-
-    Filter f1;
-    f1 << a;
-    f1 >> b >> d >> e;
-    //f1.meshes() = ogreMeshe;
-    filters.push_back(f1);
-
-    cout << "nactive: " << f1.nonactiveVertices() << " active: " << f1.activeVertices() << " yarp: " << f1.yarpVertices() << " narp: " << f1.narpVertices() << endl;
-
-    for (int i = 0; i < 256; i++) {
-        GridCube gc(i);
-        Cube::Rotation r;
-        bool ok = f1.place(gc, r);
-        cout << gc << " is " << ok << " r: " << r << endl;
-    }
-
     GridCube c1;
     c1 << a;
-    cout << "Cube: " << c1 << endl << "Filter: " << f1 << endl;
+    cout << "Cube: " << c1 << endl;
+    buildFilters();
+    computeCases();
     // First test
     //cout << "test 1" << endl;
     //Cube c1;
@@ -69,3 +52,33 @@ MarchingCube::MarchingCube() {
 
 MarchingCube::~MarchingCube() {}
 
+void MarchingCube::computeCases() {
+    for (int i = 0; i < 256; i++) {
+        GridCube gc(i);
+        cout << "Case " << i << ": " << gc;
+        Cube::Rotation r;
+        for (vector<Filter>::const_iterator it = _filters.begin(); it != _filters.end(); it++) {
+            while (it->place(gc, r)) {
+            }
+        }
+        if (gc.activeVertices() == 0) {
+            cout << " [COMPLETE]" << endl;
+        } else {
+            cout << " [INCOMPLETE]" << endl;
+        }
+        _gridcubes.push_back(gc);
+    }
+}
+
+void MarchingCube::buildFilters() {
+    Filter f0;
+    f0 << a << b;
+    f0 >> d >> c >> e >> f;
+    _filters.push_back(f0);
+
+    Filter f1;
+    f1 << a;
+    f1 >> b >> d >> e;
+    //f1.meshes() = ogreMeshe;
+    _filters.push_back(f1);
+}

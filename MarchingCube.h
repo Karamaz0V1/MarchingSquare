@@ -10,6 +10,7 @@
 #define __MARCHINGCUBE_H__
 #include <vector>
 #include "GridCube.h"
+#include "Filter.h"
 
 class MarchingCube {
     public:
@@ -18,9 +19,11 @@ class MarchingCube {
 
     private:
         void computeCases();
+        void buildFilters();
 
     private:
         std::vector<GridCube> _gridcubes;
+        std::vector<Filter> _filters;
         // _cases[256];
 
 };
