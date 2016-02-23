@@ -20,6 +20,7 @@ class Filter: public Cube {
         bool place(GridCube & gc, Rotation & r) const;
         virtual int activeVertices() const;
         virtual int narpVertices() const;
+        void flip();
 
         void rotateX();
         void rotateY();

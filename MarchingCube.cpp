@@ -53,6 +53,7 @@ MarchingCube::MarchingCube() {
 MarchingCube::~MarchingCube() {}
 
 void MarchingCube::computeCases() {
+    int cpt = 0;
     for (int i = 0; i < 256; i++) {
         GridCube gc(i);
         cout << "Case " << i << ": " << gc;
@@ -63,22 +64,50 @@ void MarchingCube::computeCases() {
         }
         if (gc.activeVertices() == 0) {
             cout << " [COMPLETE]" << endl;
+            cpt ++;
         } else {
             cout << " [INCOMPLETE]" << endl;
         }
         _gridcubes.push_back(gc);
     }
+    cout << cpt << "/256 complete" << endl;
 }
 
 void MarchingCube::buildFilters() {
-    Filter f0;
-    f0 << a << b;
-    f0 >> d >> c >> e >> f;
-    _filters.push_back(f0);
+    Filter f6;
+    f6 << a << b << c << e;
+    f6 >> d >> f >> g >> h;
+    _filters.push_back(f6);
+
+    Filter f5;
+    f5 << a << b << c << f;
+    f5 >> d >> e >> g;
+    _filters.push_back(f5);
+
+    Filter f4;
+    f4 << a << b << c << d;
+    f4 >> e >> f >> g >> h;
+    _filters.push_back(f4);
+
+    Filter f3;
+    f3 << a << b << c;
+    f3 >> d >> e >> f >> g;
+    _filters.push_back(f3);
+
+    Filter f2;
+    f2 << a << b;
+    f2 >> d >> c >> e >> f;
+    _filters.push_back(f2);
 
     Filter f1;
     f1 << a;
     f1 >> b >> d >> e;
     //f1.meshes() = ogreMeshe;
     _filters.push_back(f1);
+
+    Filter f1b = f1;
+
+    Filter f0;
+    f0 << a << b << c << d << e << f << g << h;
+    _filters.push_back(f0);
 }

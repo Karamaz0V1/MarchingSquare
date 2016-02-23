@@ -47,6 +47,11 @@ bool Filter::place(const Cube & cube, Rotation & rotation) const {
     return ok;
 }
 
+void Filter::flip() {
+    _vertices.flip();
+    _nvertices.flip();
+}
+
 bool Filter::place(GridCube & gc, Rotation & rotation) const {
     Filter tmp(*this);
     bool ok = false;
